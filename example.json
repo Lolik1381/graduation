@@ -1,0 +1,134 @@
+{
+  
+  "header": "Произвести проверку фрезера в цеху №1",
+  "description": "description",
+  "verifications": [
+    {
+      
+      "name": "Проверка 1",
+      "requiredComment": false,
+      "requiredControlValue": false,
+      "requiredPhoto": false,
+      "childrenVerifications": [
+        {
+          
+          "name": "Проверка 4",
+          "requiredComment": false,
+          "requiredControlValue": false,
+          "requiredPhoto": false
+        },
+        {
+          
+          "name": "Проверка 5",
+          "requiredComment": false,
+          "requiredControlValue": false,
+          "requiredPhoto": false,
+          "childrenVerifications": [
+            {
+              
+              "name": "Проверка 6",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            },
+            {
+              
+              "name": "Проверка 7",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      
+      "name": "Проверка 2",
+      "requiredComment": false,
+      "requiredControlValue": false,
+      "requiredPhoto": false,
+      "childrenVerifications": [
+        {
+          
+          "name": "Проверка 8",
+          "requiredComment": false,
+          "requiredControlValue": false,
+          "requiredPhoto": false
+        }
+      ]
+    },
+    {
+      
+      "name": "Проверка 3",
+      "requiredComment": false,
+      "requiredControlValue": false,
+      "requiredPhoto": false,
+      "childrenVerifications": [
+        {
+          
+          "name": "Проверка 10",
+          "requiredComment": false,
+          "requiredControlValue": false,
+          "requiredPhoto": false,
+          "childrenVerifications": [
+            {
+              
+              "name": "Проверка 11",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      
+      "name": "Проверка 9",
+      "requiredComment": false,
+      "requiredControlValue": false,
+      "requiredPhoto": false,
+      "childrenVerifications": [
+        {
+          
+          "name": "Проверка 12",
+          "requiredComment": false,
+          "requiredControlValue": false,
+          "requiredPhoto": false,
+          "childrenVerifications": [
+            {
+              
+              "name": "Проверка 13",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            },
+            {
+              
+              "name": "Проверка 14",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            },
+            {
+              
+              "name": "Проверка 15",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            },
+            {
+              
+              "name": "Проверка 16",
+              "requiredComment": false,
+              "requiredControlValue": false,
+              "requiredPhoto": false
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

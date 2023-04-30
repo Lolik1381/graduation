@@ -1,0 +1,79 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  liquibase:
+    enabled: false
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+  jpa:
+    hibernate.ddl-auto: none
+    properties:
+      hibernate:
+        use_sql_comments: false
+        format_sql: false
+        show_sql: false
+        jdbc.lob.non_contextual_creation: true
+        dialect: org.hibernate.dialect.PostgreSQL9Dialect
+        jdbc:
+          time_zone: UTC
+
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: never
+
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: graduation
+            instanceId: AUTO
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 4
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            tablePrefix: qrtz_
+            isClustered: true
+          plugin:
+            shutdownHook:
+              class: org.quartz.plugins.management.ShutdownHookPlugin
+              cleanShutdown: true
+
+aws:
+  s3:
+    endpoint: http://localhost:9000
+    accessKeyId: AKIAIOSFODNN7EXAMPLE
+    secretAccessKey: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
+
+logging:
+  level:
+    root: INFO
+    ru:
+      stankin:
+        graduation:
+          scheduler: DEBUG # Логгирование джоб
+          quartz:
+            service: DEBUG # Логгирования Quartz
+
+graduation:
+  security:
+    jwt-secret: BCC9C900E62B9FAB8CF0F9E0B7CA93867BC929325784A5EB665D41F394E5BD98
+    password-lifetime-ms: 2592000

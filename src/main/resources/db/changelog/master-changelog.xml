@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="1" author="Stanislav Lychagin">
+        <tagDatabase tag="Version 1.0"/>
+    </changeSet>
+
+    <include file="1.0/20220720_create_db.sql" relativeToChangelogFile="true"/>
+    <include file="1.0/20230218_create_shedlock.sql" relativeToChangelogFile="true"/>
+    <include file="1.0/20230218_init_qartz.sql" relativeToChangelogFile="true"/>
+    <include file="1.0/20221016_init_db.sql" relativeToChangelogFile="true"/>
+
+</databaseChangeLog>

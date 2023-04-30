@@ -1,0 +1,23 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+autonumber
+
+participant Client
+participant Server
+database PostgreSQL
+
+Client -> Server: POST /authenticate
+
+Server -> PostgreSQL: Получение пользователя по username
+PostgreSQL -> Server: return User
+Server -> Server: Генерация JWT токена с использованием secretKey
+Server -> Client: return JWT token
+
+alt Пользователь не найден
+    PostgreSQL -> Server: Error. Пользователь не найден
+    Server -> Client: Сообщение об ошибке
+end
+
+
+@enduml

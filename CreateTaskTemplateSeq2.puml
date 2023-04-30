@@ -1,0 +1,45 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Пользователь
+participant "UserInterface:AuthWindow"
+participant "UserInterface:MainWindow"
+participant UserController
+participant UserService
+participant UserRepository
+participant JwtTokenService
+
+Пользователь -> "UserInterface:AuthWindow": open()
+
+alt validate(login, password) == true
+    "UserInterface:AuthWindow" -> "UserInterface:AuthWindow": validate(login, password)
+    "UserInterface:AuthWindow" -> UserController: createToken(login, password)
+    UserController -> UserService: createToken(login, password)
+    UserService -> UserRepository: findUserByLogin(login)
+
+    alt
+        UserRepository --> UserService: user
+        alt
+            UserService -> UserService: decrypt(user.password)
+            UserService -> JwtTokenService: createToken(user)
+            JwtTokenService --> UserService: jwtToken
+            UserService --> UserController: jwtToken
+            UserController --> "UserInterface:MainWindow": open()
+        else
+            UserService -->> UserController: Ошибка "Пользователь с указанным логином и/или паролем не найден"
+            UserController -->> "UserInterface:AuthWindow": Ошибка "Пользователь с указанным логином и/или паролем не найден"
+            destroy "UserInterface:AuthWindow"
+        end
+    else
+        UserRepository -->> UserService: Ошибка "Пользователь с указанным логином и/или паролем не найден"
+        UserService -->> UserController: Ошибка "Пользователь с указанным логином и/или паролем не найден"
+        UserController -->> "UserInterface:AuthWindow": Ошибка "Пользователь с указанным логином и/или паролем не найден"
+        destroy "UserInterface:AuthWindow"
+    end
+else
+    "UserInterface:AuthWindow" -->> "UserInterface:AuthWindow": Ошибка "Поле логин или пароль не заполнены"
+    destroy "UserInterface:AuthWindow"
+end
+
+
+@enduml

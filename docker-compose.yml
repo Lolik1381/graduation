@@ -1,0 +1,33 @@
+version: "3.3"
+services:
+  postgres:
+    image: postgres:12.2
+    container_name: graduation-postgres
+    command:
+      - "postgres"
+      - "-c"
+      - "max_connections=1000"
+    volumes:
+      - /var/lib/postgresql
+      - .:/docker-entrypoint-initdb.d
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_MULTIPLE_DATABASES="postgres"
+  minio:
+    image: 'docker.io/bitnami/minio:2020-debian-10'
+    container_name: graduation_minio
+    restart: always
+    ports:
+      - '9000:9000'
+    environment:
+      - MINIO_ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
+      - MINIO_SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+    volumes:
+      - 'minio_data:/data'
+
+volumes:
+  minio_data:
+    driver: local

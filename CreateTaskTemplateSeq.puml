@@ -1,0 +1,58 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+
+actor Admin
+participant "UserInterface:AdminWindow"
+participant "UserInterface:TaskTemplateCreateWindow"
+participant TaskTemplateController
+participant TaskTemplateServiceImpl
+participant TaskTemplateValidator
+participant TaskTemplateConverter
+participant TaskTemplateRepository
+
+Admin -> "UserInterface:AdminWindow": open()
+"UserInterface:AdminWindow" -> "UserInterface:TaskTemplateCreateWindow": open()
+
+alt Пользователь нажал на кнопку "Добавить проверку"
+    "UserInterface:TaskTemplateCreateWindow" -> "UserInterface:TaskTemplateCreateWindow": addVerification()
+else Пользователь нажал на кнопку "Добавить под проверку"
+    "UserInterface:TaskTemplateCreateWindow" -> "UserInterface:TaskTemplateCreateWindow": addSubVerification(verificationDto)
+end
+
+alt validate(verificationDto) == true
+        "UserInterface:TaskTemplateCreateWindow" -> "UserInterface:TaskTemplateCreateWindow": validate(verificationDto)
+
+        "UserInterface:TaskTemplateCreateWindow" -> TaskTemplateController: createTaskTemplate(taskTemplateDto)
+        TaskTemplateController -> TaskTemplateServiceImpl: createTaskTemplate(taskTemplateDto)
+        TaskTemplateServiceImpl -> TaskTemplateValidator: validate(taskTemplateDto)
+
+        alt validate(taskTemplateDto) == true
+            TaskTemplateValidator --> TaskTemplateServiceImpl: Управление
+
+            TaskTemplateServiceImpl -> TaskTemplateConverter: toEntity(taskTemplateDto)
+            TaskTemplateConverter --> TaskTemplateServiceImpl: taskTemplateEntity
+
+            TaskTemplateServiceImpl -> TaskTemplateRepository: save(taskTemplateEntity)
+            alt Успешное сохранение шаблона задания
+                TaskTemplateRepository --> TaskTemplateServiceImpl: taskTemplateEntity
+                TaskTemplateServiceImpl -> TaskTemplateValidator: toDto(taskTemplateEntity)
+                TaskTemplateValidator --> TaskTemplateServiceImpl: taskDto
+                TaskTemplateServiceImpl --> TaskTemplateController: taskDto
+                TaskTemplateController -->> "UserInterface:TaskTemplateCreateWindow": Шаблон задания создан
+            else Ошибка при сохранении шаблона задания
+                TaskTemplateRepository -->> TaskTemplateServiceImpl: Ошибка "Ошибка сохранения шаблона задания"
+                TaskTemplateServiceImpl -->> TaskTemplateController: Ошибка "Ошибка сохранения шаблона задания"
+                TaskTemplateController -->> "UserInterface:TaskTemplateCreateWindow": Ошибка "Внутренняя ошибка при сохранении шаблона задания,\nпопробуйте повторить операцию спустя время"
+                destroy "UserInterface:TaskTemplateCreateWindow"
+            end
+        else Валидация прошла с ошибкой
+            TaskTemplateValidator -->> TaskTemplateServiceImpl: Ошибка "Нарушены правила создания шаблона задания"
+            TaskTemplateServiceImpl -->> TaskTemplateController: Ошибка "Нарушены правила создания шаблона задания"
+            TaskTemplateController -->> "UserInterface:TaskTemplateCreateWindow": Ошибка "Нарушены правила создания шаблона задания"
+            destroy "UserInterface:TaskTemplateCreateWindow"
+        end
+    else Администратор не добавил проверки
+        "UserInterface:TaskTemplateCreateWindow" -->> "UserInterface:TaskTemplateCreateWindow": Ошибка "Невозможно сохранить шаблон задания без проверок"
+        destroy "UserInterface:TaskTemplateCreateWindow"
+    end
+@enduml

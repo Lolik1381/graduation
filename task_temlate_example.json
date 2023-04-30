@@ -1,0 +1,27 @@
+{
+  "id": "",
+  "name": "Наименование показания",
+  "description": "Описание показания",
+  "isRequiredPhoto": false,
+  "isRequiredComment": false,
+  "isRequiredControlValue": false,
+  "permissibleControlValue": {
+    "type": "INTEGER",
+    "min": "0",
+    "max": "100"
+  },
+  "parent": {
+    "name": "Наименование показания",
+    "description": "Описание показания",
+    "isRequiredPhoto": false,
+    "isRequiredComment": false,
+    "isRequiredControlValue": false,
+    "permissibleControlValue": {
+      "type": "INTEGER",
+      "min": "0",
+      "max": "100"
+    },
+    "parent": null
+  }
+}
+
