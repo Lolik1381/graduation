@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.RestController
 import ru.stankin.graduation.controller.admin.v1.AdminUserApi
 import ru.stankin.graduation.dto.CommonResponse
 import ru.stankin.graduation.dto.GroupDto
-import ru.stankin.graduation.dto.UserDto
+import ru.stankin.graduation.dto.RequestUserDto
+import ru.stankin.graduation.dto.ResponseUserDto
 import ru.stankin.graduation.service.UserService
 
 @RestController
@@ -15,11 +16,11 @@ class AdminUserController(
     private val userService: UserService
 ) : AdminUserApi {
 
-    override fun create(@RequestBody userDto: UserDto): CommonResponse<UserDto> {
-        return CommonResponse.ok(userService.createUser(userDto))
+    override fun create(@RequestBody requestUserDto: RequestUserDto): CommonResponse<ResponseUserDto> {
+        return CommonResponse.ok(userService.createUser(requestUserDto))
     }
 
-    override fun findAll(searchText: String?, pageable: Pageable): CommonResponse<Page<UserDto>> {
+    override fun findAll(searchText: String?, pageable: Pageable): CommonResponse<Page<ResponseUserDto>> {
         return CommonResponse.ok(userService.findAll(searchText, pageable))
     }
 

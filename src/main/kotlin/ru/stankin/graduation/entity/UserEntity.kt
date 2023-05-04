@@ -33,6 +33,9 @@ class UserEntity(
     @Column(name = "email", nullable = false, length = 320)
     var email: String? = null,
 
+    @Column(name = "is_temporary_password", nullable = false)
+    var isTemporaryPassword: Boolean = true,
+
     @ManyToMany(cascade = [CascadeType.ALL])
     @JoinTable(
         name = "user_role_link",

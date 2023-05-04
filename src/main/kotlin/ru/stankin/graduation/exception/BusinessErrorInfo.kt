@@ -31,4 +31,6 @@ enum class BusinessErrorInfo(override val messageFormat: String) : ErrorInfo {
 
     USER_DISABLED("Пользователь недоступен"),
     USER_BAD_CREDENTIALS("Неверный логин или пароль"),
+    USER_ACCOUNT_EXPIRED("Истек строк действия пароля"),
+    USER_OLD_PASSWORD_NOT_VALID("Не верный пароль")
 }

@@ -3,14 +3,18 @@ package ru.stankin.graduation.service
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import ru.stankin.graduation.dto.GroupDto
-import ru.stankin.graduation.dto.UserDto
+import ru.stankin.graduation.dto.RequestChangePasswordDto
+import ru.stankin.graduation.dto.RequestLoginDto
+import ru.stankin.graduation.dto.RequestUserDto
+import ru.stankin.graduation.dto.ResponseLoginDto
+import ru.stankin.graduation.dto.ResponseUserDto
 
 interface UserService {
 
-    fun createUser(userDto: UserDto): UserDto
-    fun findAll(searchText: String?, pageable: Pageable): Page<UserDto>
+    fun login(requestLoginDto: RequestLoginDto): ResponseLoginDto
+    fun changePassword(requestChangePasswordDto: RequestChangePasswordDto): ResponseUserDto
+    fun createUser(requestUserDto: RequestUserDto): ResponseUserDto
+    fun findAll(searchText: String?, pageable: Pageable): Page<ResponseUserDto>
     fun findAllGroups(searchName: String?, pageable: Pageable): Page<GroupDto>
-    fun authenticate(username: String, password: String)
-    fun userRoles(): List<String>
-    fun getUserByContext(): UserDto
+    fun getUserByContext(): ResponseUserDto
 }
