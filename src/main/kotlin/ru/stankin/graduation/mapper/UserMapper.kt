@@ -4,7 +4,8 @@ import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 import org.mapstruct.Mappings
 import ru.stankin.graduation.config.DefaultMapperConfig
-import ru.stankin.graduation.dto.UserDto
+import ru.stankin.graduation.dto.RequestUserDto
+import ru.stankin.graduation.dto.ResponseUserDto
 import ru.stankin.graduation.entity.RoleEntity
 import ru.stankin.graduation.entity.UserEntity
 
@@ -16,10 +17,7 @@ abstract class UserMapper {
         Mapping(source = "source.id", target = "id"),
         Mapping(source = "roles", target = "roles")
     )
-    abstract fun toEntity(source: UserDto, roles: List<RoleEntity>): UserEntity
+    abstract fun toEntity(source: RequestUserDto, roles: List<RoleEntity>): UserEntity
 
-    @Mappings(
-        Mapping(target = "password", ignore = true)
-    )
-    abstract fun toDto(source: UserEntity): UserDto
+    abstract fun toDto(source: UserEntity): ResponseUserDto
 }

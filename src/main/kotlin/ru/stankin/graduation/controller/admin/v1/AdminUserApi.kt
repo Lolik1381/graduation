@@ -9,16 +9,17 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import ru.stankin.graduation.dto.CommonResponse
 import ru.stankin.graduation.dto.GroupDto
-import ru.stankin.graduation.dto.UserDto
+import ru.stankin.graduation.dto.RequestUserDto
+import ru.stankin.graduation.dto.ResponseUserDto
 
 @RequestMapping("/admin/v1/user")
 interface AdminUserApi {
 
     @PostMapping("/create")
-    fun create(@RequestBody userDto: UserDto): CommonResponse<UserDto>
+    fun create(@RequestBody requestUserDto: RequestUserDto): CommonResponse<ResponseUserDto>
 
     @GetMapping("/findAll")
-    fun findAll(@RequestParam(required = false) searchText: String?, pageable: Pageable): CommonResponse<Page<UserDto>>
+    fun findAll(@RequestParam(required = false) searchText: String?, pageable: Pageable): CommonResponse<Page<ResponseUserDto>>
 
     @GetMapping("/groups")
     fun findAllGroups(@RequestParam(required = false) searchName: String?, pageable: Pageable): CommonResponse<Page<GroupDto>>

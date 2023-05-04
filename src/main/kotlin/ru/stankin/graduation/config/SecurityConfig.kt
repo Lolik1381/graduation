@@ -15,7 +15,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ru.stankin.graduation.security.JwtAuthenticationEntryPoint
 import ru.stankin.graduation.security.JwtRequestFilter
 
-
 @Configuration
 class SecurityConfig(
     private val userDetailsService: UserDetailsService,
@@ -42,6 +41,7 @@ class SecurityConfig(
     override fun configure(web: WebSecurity) {
         web.ignoring()
             .antMatchers("/user/v1/login")
+            .antMatchers("/user/v1/changePassword")
             .antMatchers("/user/v1/file/{storageId}")
     }
 

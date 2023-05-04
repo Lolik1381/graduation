@@ -32,7 +32,7 @@ class AdviceController {
         logger.warn(exception.message, exception)
 
         return when (exception) {
-            is ApplicationException -> ResponseEntity(CommonResponse<Any>(exception.message.orEmpty()), HttpStatus.BAD_REQUEST)
+            is ApplicationException -> ResponseEntity(CommonResponse<Any>(HttpStatus.BAD_REQUEST.value(), exception.message.orEmpty()), HttpStatus.OK)
             else -> ResponseEntity(CommonResponse<Any>(HttpStatus.INTERNAL_SERVER_ERROR.value(), exception.message.orEmpty()), HttpStatus.INTERNAL_SERVER_ERROR)
         }
     }

@@ -24,7 +24,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2
 class SwaggerConfig : ApplicationListener<ObjectMapperConfigured> {
 
     companion object {
-        private val UNPROTECTED_URLS = listOf("/user/v1/login")
+        private val UNPROTECTED_URLS = listOf("/user/v1/login", "/user/v1/changePassword")
     }
 
     @Bean
