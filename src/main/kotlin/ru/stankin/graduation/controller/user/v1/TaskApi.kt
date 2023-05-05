@@ -15,5 +15,9 @@ interface TaskApi{
     fun findTaskById(@PathVariable taskId: String): CommonResponse<TaskDto>
 
     @GetMapping("/findall")
-    fun findTasks(@RequestParam(required = false) status: TaskDto.TaskStatusDto?): CommonResponse<List<TaskMetadataDto>>
+    fun findTasks(
+        @RequestParam(required = false) status: TaskDto.TaskStatusDto?,
+        @RequestParam(required = false) searchText: String?,
+        @RequestParam(required = false) equipmentId: String?
+    ): CommonResponse<List<TaskMetadataDto>>
 }

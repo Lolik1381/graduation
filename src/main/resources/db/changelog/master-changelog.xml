@@ -13,5 +13,6 @@
     <include file="1.0/20230218_init_qartz.sql" relativeToChangelogFile="true"/>
     <include file="1.0/20221016_init_db.sql" relativeToChangelogFile="true"/>
     <include file="1.0/20230504_add_column.sql" relativeToChangelogFile="true"/>
+    <include file="1.0/20230505_add_equipment.sql" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

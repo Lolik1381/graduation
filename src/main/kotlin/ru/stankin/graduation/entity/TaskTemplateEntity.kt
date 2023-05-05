@@ -4,8 +4,11 @@ import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.EnumType
 import javax.persistence.Enumerated
+import javax.persistence.FetchType
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
 import javax.persistence.OneToMany
 import javax.persistence.Table
 import org.hibernate.annotations.GenericGenerator
@@ -28,6 +31,10 @@ class TaskTemplateEntity(
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     var status: TaskTemplateStatus? = null,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "equipment_id")
+    var equipment: EquipmentEntity? = null,
 
     @OneToMany(mappedBy = "taskTemplate")
     var taskTemplateChecks: MutableSet<TaskTemplateCheckEntity>? = mutableSetOf()

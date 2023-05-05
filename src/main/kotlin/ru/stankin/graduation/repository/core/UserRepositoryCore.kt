@@ -3,7 +3,7 @@ package ru.stankin.graduation.repository.core
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.domain.Specification
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Repository
 import ru.stankin.graduation.entity.RoleEntity_
 import ru.stankin.graduation.entity.UserEntity
 import ru.stankin.graduation.entity.UserEntity_
@@ -11,7 +11,7 @@ import ru.stankin.graduation.repository.UserRepository
 import ru.stankin.graduation.repository.util.combineSpecification
 import ru.stankin.graduation.repository.util.getLikeText
 
-@Component
+@Repository
 class UserRepositoryCore(
     private val userRepository: UserRepository
 ) {

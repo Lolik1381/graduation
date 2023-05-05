@@ -16,7 +16,7 @@ class TaskController(
         return CommonResponse.ok(taskService.findTaskById(taskId))
     }
 
-    override fun findTasks(status: TaskDto.TaskStatusDto?): CommonResponse<List<TaskMetadataDto>> {
-        return CommonResponse.ok(taskService.findTasksMetadata(status))
+    override fun findTasks(status: TaskDto.TaskStatusDto?, searchText: String?, equipmentId: String?): CommonResponse<List<TaskMetadataDto>> {
+        return CommonResponse.ok(taskService.findTasksMetadata(status, searchText, equipmentId))
     }
 }

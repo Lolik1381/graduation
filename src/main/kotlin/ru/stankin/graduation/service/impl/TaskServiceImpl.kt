@@ -16,6 +16,7 @@ import ru.stankin.graduation.repository.GroupRepository
 import ru.stankin.graduation.repository.TaskRepository
 import ru.stankin.graduation.repository.TaskTemplateRepository
 import ru.stankin.graduation.repository.UserRepository
+import ru.stankin.graduation.repository.util.getLikeText
 import ru.stankin.graduation.service.TaskService
 import ru.stankin.graduation.service.UserService
 
@@ -37,10 +38,10 @@ class TaskServiceImpl(
     }
 
     @Transactional(readOnly = true)
-    override fun findTasksMetadata(status: TaskDto.TaskStatusDto?): List<TaskMetadataDto> {
+    override fun findTasksMetadata(status: TaskDto.TaskStatusDto?, searchText: String?, equipmentId: String?): List<TaskMetadataDto> {
         val userDto = userService.getUserByContext()
 
-        return taskRepository.findAllBySystemUserId(userDto.id!!)
+        return taskRepository.findAllBySystemUserId(userDto.id!!, status?.name, searchText.getLikeText(), equipmentId)
             .map { taskMetadataMapper.toDto(it) }
     }
 
